@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="DEBUG">
+    <Properties>
+        <Property name="baseDir">logs</Property>
+    </Properties>
+    <Appenders>
+        <RollingFile name="RollingFile" fileName="${baseDir}/hippodrome.log"
+                     filePattern="${baseDir}/hippodrome.%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss,sss} %-5level %logger{36}: %msg%n"/>
+            <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            <OnStartupTriggeringPolicy />
+            <Delete basePath="${baseDir}" maxDepth="2">
+                <IfFileName glob="*/hippodrome.*.log" />
+                <IfLastModified age="7d" />
+            </Delete>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="debug">
+            <AppenderRef ref="RollingFile"/>
+        </Root>
+    </Loggers>
+</Configuration>
